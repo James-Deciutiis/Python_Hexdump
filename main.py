@@ -30,29 +30,35 @@ def main():
     input_file = getFile()
     file_bytes = outputFileAsBytes(input_file)
     hex_string = []
-    data = ""
 
     for b in file_bytes:
         if index%16 == 0:
             print(format(index, '06X'), end=' ') 
             print(hex(b), end=' ')
+            string += format(index, '06X')
+            string += " "
+            string += hex(b)
+            string += " "
+
         elif index%16 == 15:
             print(hex(b))
+            string += hex(b)
+            string += " "
+            hex_string.append(string)
+            string = ""
         else:    
             print(hex(b), end=' ')
-
-        hex_string.append(format(b, 'x'))
+            string += hex(b)
+            string += " "
+            
         index += 1
-    
+         
+    hex_string.append(string)
     print("")
-    data = data.join([str(elem) for elem in hex_string])
-    data = data.replace(' ', '')
-    data = data.replace('\n', '')
-    data = data.strip()
-    data = data[:-1]
-    print(data)
-    data = binascii.a2b_hex(data)
-    with open("output_file.jpg", "wb") as output_file:
-        output_file.write(data)
+    
+    with open("output_file.txt", "w+") as f:
+        for line in hex_string:
+            f.write(line + "\n")
+
 
 main()
