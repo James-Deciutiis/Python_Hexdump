@@ -1,7 +1,7 @@
 # Python_Hexdump
 
 ## Dependancies
-python 3.0 or greater
+Python 3.0 or greater
 
 ## How to use
 1 - cd to Python_Hexdump
