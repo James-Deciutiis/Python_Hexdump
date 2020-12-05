@@ -1,10 +1,9 @@
 import sys
 import os
 import codecs
-import binascii
 
 def validArgs():
-    return os.path.isfile(sys.argv[1]) and len(sys.argv)==2
+    return os.path.isfile(sys.argv[1]) and len(sys.argv)>=2
 
 def getFile():
     if(validArgs()):
@@ -30,6 +29,9 @@ def main():
     input_file = getFile()
     file_bytes = outputFileAsBytes(input_file)
     hex_string = []
+    output_file = sys.argv[1] + "_output.txt"
+    if(len(sys.argv)==3):
+        output_file = sys.argv[2]
 
     for b in file_bytes:
         if index%16 == 0:
@@ -56,7 +58,7 @@ def main():
     hex_string.append(string)
     print("")
     
-    with open("output_file.txt", "w+") as f:
+    with open(output_file, "w+") as f:
         for line in hex_string:
             f.write(line + "\n")
 
